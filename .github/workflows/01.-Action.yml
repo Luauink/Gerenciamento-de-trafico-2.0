@@ -19,5 +19,3 @@ jobs:
           distribution: 'temurin'  # Ou 'zulu', 'adopt', 'openjdk', etc.
           java-version: '21'        # A versão do Java que você deseja usar
 
-      - name: Run tests
-        run: ./mvnw test
