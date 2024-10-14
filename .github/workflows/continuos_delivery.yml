@@ -26,18 +26,6 @@ jobs:
         run: |
           docker build -t myapp:latest .  # Altere 'myapp' para o nome da sua imagem
 
-      - name: Publish Docker image to Azure
-        uses: azure/docker-login@v1
-        with:
-          login-server: <your_registry>.azurecr.io  # Substitua <your_registry> pelo nome do seu ACR
-          username: ${{ secrets.AZURE_DOCKER_USERNAME }}  # Nome de usuário do Azure Container Registry
-          password: ${{ secrets.AZURE_DOCKER_PASSWORD }}  # Senha do Azure Container Registry
-
-      - name: Push Docker image to Azure Container Registry
-        run: |
-          docker tag myapp:latest <your_registry>.azurecr.io/myapp:latest  # Substitua <your_registry>
-          docker push <your_registry>.azurecr.io/myapp:latest  # Publique a imagem no ACR
-
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
