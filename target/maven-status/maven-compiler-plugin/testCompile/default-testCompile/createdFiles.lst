@@ -1,0 +1,4 @@
+br\com\fiap\trafego\FluxoApplicationTests.class
+br\com\fiap\trafego\SemaforoApplicationTests.class
+br\com\fiap\trafego\AcidenteApplicationTests.class
+br\com\fiap\trafego\IntersecaoApplicationTests.class
