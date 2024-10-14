@@ -1,0 +1,35 @@
+name: 03-Actions
+
+on: 
+  push:
+    branches: 
+      - "feature/**"
+
+jobs:
+  checkout_java_docker:
+    runs-on: ubuntu-latest
+    
+    steps:            
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java SDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .  # Define o diretório de contexto do Docker
+          push: false  # Não envia a imagem para o repositório Docker Hub
+          tags: my-image:latest  # Nome da imagem que você quer dar
+
+      - name: Build Java Project
+        run: mvn clean package
+
+      - name: Executar scripts
+        run: |
+          git branch
+          java --version
