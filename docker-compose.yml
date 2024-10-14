@@ -9,7 +9,7 @@ services:
       - "8080:8080"  # Mapeamento de portas
     environment:
       - SPRING_APPLICATION_NAME=trafego  # Nome da aplicação
-      - SPRING_DATASOURCE_URL=jdbc:mysql://bd-fiap-api-dev.mysql.database.azure.com:3306/<DATABASE_NAME>?useSSL=true&requireSSL=true  # URL do banco de dados MySQL no Azure
+      - SPRING_DATASOURCE_URL=jdbc:mysql://bd-fiap-api-dev.mysql.database.azure.com:3306/seu-banco?useSSL=true&requireSSL=true  # URL do banco de dados MySQL no Azure
       - SPRING_DATASOURCE_USERNAME=rm98465  # Nome de usuário do banco de dados
       - SPRING_DATASOURCE_PASSWORD=@Uink4152  # Senha do banco de dados (substitua pela sua senha real)
       - SPRING_JPA_SHOW_SQL=true  # Habilita a exibição das instruções SQL no log
@@ -22,3 +22,16 @@ services:
     build:
       context: .  # Caminho do contexto de build
       dockerfile: Dockerfile  # Dockerfile para construir a imagem
+    # Se você deseja que o serviço de teste seja uma versão da aplicação, você pode usar a mesma imagem
+    # ports:
+    #   - "8081:8080"  # Mapeamento de portas para o serviço de teste, se necessário
+    environment:
+      - SPRING_APPLICATION_NAME=trafego-test  # Nome da aplicação para o ambiente de teste
+      - SPRING_DATASOURCE_URL=jdbc:mysql://bd-fiap-api-dev.mysql.database.azure.com:3306/seu-banco-test?useSSL=true&requireSSL=true  # URL do banco de dados MySQL no Azure para testes
+      - SPRING_DATASOURCE_USERNAME=rm98465  # Nome de usuário do banco de dados
+      - SPRING_DATASOURCE_PASSWORD=@Uink4152  # Senha do banco de dados (substitua pela sua senha real)
+      - SPRING_JPA_SHOW_SQL=true  # Habilita a exibição das instruções SQL no log
+      - SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true  # Formata as instruções SQL no log
+      - SPRING_PROFILES_ACTIVE=test  # Ativa o perfil de teste
+
+# Você pode adicionar volumes, redes e outros serviços conforme necessário
