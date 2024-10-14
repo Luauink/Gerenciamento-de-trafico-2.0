@@ -13,10 +13,11 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: Setup Java SDK
         uses: actions/setup-java@v3
         with:
-          java-version: '21'  # Certifique-se de usar a versão do Java que você precisa
+          distribution: 'temurin'  # Ou 'zulu', 'adopt', 'openjdk', etc.
+          java-version: '21'        # A versão do Java que você deseja usar
 
       - name: Run tests
         run: ./mvnw test
