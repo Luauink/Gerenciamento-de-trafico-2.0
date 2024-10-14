@@ -1,0 +1,21 @@
+name: Checkout Codec
+
+on:
+  push:
+    branches:
+      - feature/action-01
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Java SDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'  # Ou 'zulu', 'adopt', 'openjdk', etc.
+          java-version: '21'        # A versão do Java que você deseja usar
+
