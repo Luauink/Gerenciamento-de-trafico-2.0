@@ -3,11 +3,11 @@ name: Checkout Codec
 on:
   push:
     branches:
-      - develop
+      - feature/action-01
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the code
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
