@@ -3,21 +3,22 @@ version: '3.8'
 services:
   app:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: .  # Caminho do contexto de build
+      dockerfile: Dockerfile  # Dockerfile para construir a imagem
     ports:
-      - "8080:8080"
+      - "8080:8080"  # Mapeamento de portas
     environment:
-      - SPRING_APPLICATION_NAME=trafego
-      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
-      - SPRING_DATASOURCE_USERNAME=rm99266
-      - SPRING_DATASOURCE_PASSWORD=160596
-      - SPRING_JPA_SHOW_SQL=true
-      - SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
-      - SPRING_SECURITY_USER_NAME=willian
-      - SPRING_SECURITY_USER_PASSWORD=123
+      - SPRING_APPLICATION_NAME=trafego  # Nome da aplicação
+      - SPRING_DATASOURCE_URL=jdbc:mysql://bd-fiap-api-dev.mysql.database.azure.com:3306/<DATABASE_NAME>?useSSL=true&requireSSL=true  # URL do banco de dados MySQL no Azure
+      - SPRING_DATASOURCE_USERNAME=rm98465  # Nome de usuário do banco de dados
+      - SPRING_DATASOURCE_PASSWORD=@Uink4152  # Senha do banco de dados (substitua pela sua senha real)
+      - SPRING_JPA_SHOW_SQL=true  # Habilita a exibição das instruções SQL no log
+      - SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true  # Formata as instruções SQL no log
+      - SPRING_SECURITY_USER_NAME=willian  # Nome de usuário de segurança
+      - SPRING_SECURITY_USER_PASSWORD=123  # Senha de segurança
+      - SPRING_PROFILES_ACTIVE=dev  # Ativa o perfil de desenvolvimento
 
   test:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: .  # Caminho do contexto de build
+      dockerfile: Dockerfile  # Dockerfile para construir a imagem
