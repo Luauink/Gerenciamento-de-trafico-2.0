@@ -19,15 +19,15 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Build Java Project
+        run: mvn clean package  # Compile o projeto e gere o diretório target
+
       - name: Build Docker Image
         uses: docker/build-push-action@v6
         with:
           context: .  # Define o diretório de contexto do Docker
           push: false  # Não envia a imagem para o repositório Docker Hub
           tags: my-image:latest  # Nome da imagem que você quer dar
-
-      - name: Build Java Project
-        run: mvn clean package
 
       - name: Executar scripts
         run: |
