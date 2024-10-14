@@ -1,0 +1,45 @@
+name: Continuous Delivery to Azure
+
+on:
+  push:
+    branches:
+      - develop  # A branch que você deseja monitorar para implantações
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # Nome de usuário do Docker Hub
+          password: ${{ secrets.DOCKER_PASSWORD }}  # Senha do Docker Hub
+
+      - name: Build Docker image
+        run: |
+          docker build -t myapp:latest .  # Altere 'myapp' para o nome da sua imagem
+
+      - name: Publish Docker image to Azure
+        uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.AZURE_DOCKER_USERNAME }}  # Nome de usuário do Azure Container Registry
+          password: ${{ secrets.AZURE_DOCKER_PASSWORD }}  # Senha do Azure Container Registry
+
+      - name: Push Docker image to Azure Container Registry
+        run: |
+          docker tag myapp:latest <your_registry>.azurecr.io/myapp:latest  # Tag sua imagem
+          docker push <your_registry>.azurecr.io/myapp:latest  # Publique a imagem no ACR
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-container-deploy@v2
+        with:
+          app-name: fiap-gerenciamento-de-trafico-api  # Nome do seu aplicativo no Azure
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}  # Segredo que contém o perfil de publicação
+          image: <your_registry>.azurecr.io/myapp:latest  # Imagem que você acabou de publicar
